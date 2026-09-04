@@ -32,44 +32,64 @@ export function buildModel(kind: ModelKind) {
     return m
   }
   if (kind === 'robot') {
-    // A domed toy shell: broad forehead, rounded crown, flatter chin.
+    // A rounded cube with neon paint wrapping continuously around every face.
     // Dense vertices keep the original neon color transitions smooth in real 3D.
-    function headGeometry(scale = 1) {
-      const geometry = new RoundedBoxGeometry(2.16, 2.04, 1.30, 12, .57)
+    function headGeometry() {
+      const geometry = new RoundedBoxGeometry(2.16, 2.04, 1.95, 12, .30)
       const positions = geometry.getAttribute('position')
       for (let i = 0; i < positions.count; i++) {
         const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i)
-        const crown = .27 * (1 - Math.pow(Math.abs(x) / 1.08, 2)) * THREE.MathUtils.smoothstep(y, -.1, 1.02)
-        positions.setXYZ(i, x * scale, (y + crown) * scale, z * scale)
+        const crown = .10 * (1 - Math.pow(Math.abs(x) / 1.08, 2)) * THREE.MathUtils.smoothstep(y, -.1, 1.02)
+        // Keep the face in place while adding depth behind it.
+        positions.setXYZ(i, x, y + crown, z - .325)
       }
       geometry.computeVertexNormals()
       return geometry
     }
     const shell = headGeometry()
     const positions = shell.getAttribute('position')
-    const colors: number[] = []
-    const lemon = new THREE.Color('#fff000')
-    const aqua = new THREE.Color('#00f2eb')
-    const magenta = new THREE.Color('#ff00ba')
+    const uv: number[] = []
     for (let i = 0; i < positions.count; i++) {
-      const x = THREE.MathUtils.clamp((positions.getX(i) + 1.08) / 2.16, 0, 1)
-      const y = THREE.MathUtils.clamp((positions.getY(i) + 1.02) / 2.3, 0, 1)
-      const right = THREE.MathUtils.smoothstep(x, .28, .89)
-      const top = THREE.MathUtils.smoothstep(y, .30, .81)
-      const color = lemon.clone().lerp(magenta.clone().lerp(aqua, top), right)
-      colors.push(color.r, color.g, color.b)
+      uv.push((positions.getX(i) + 1.08) / 2.16, (positions.getY(i) + 1.02) / 2.14)
     }
-    shell.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-    const paint = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: .3, metalness: .02, clearcoat: .5, clearcoatRoughness: .16, specularIntensity: .35 })
-    mesh(headGeometry(1.045), dark, 0, .77, -.03)
-    mesh(headGeometry(1.022), chrome, 0, .78, .006)
+    shell.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2))
+    // A continuous hue gradient avoids white bands from interpolating RGB
+    // vertex colors across the broad, flat faces of the cube.
+    const pixels = new Uint8Array(128 * 128 * 4)
+    const color = new THREE.Color()
+    for (let y = 0; y < 128; y++) for (let x = 0; x < 128; x++) {
+      const across = x / 127
+      const top = THREE.MathUtils.smoothstep(y / 127, .25, .85)
+      // Spread the warm transition across the full face, with room for orange
+      // and red before reaching magenta; retain the cool blue upper corner.
+      const warmHue = across < .60
+        ? THREE.MathUtils.lerp(.16, 0, across / .60)
+        : THREE.MathUtils.lerp(0, -.15, (across - .60) / .40)
+      const coolHue = THREE.MathUtils.lerp(.16, .62, across)
+      const hue = THREE.MathUtils.lerp(warmHue, coolHue, top)
+      color.setHSL((hue + 1) % 1, 1, .40)
+      const index = (y * 128 + x) * 4
+      pixels[index] = Math.round(color.r * 255)
+      pixels[index + 1] = Math.round(color.g * 255)
+      pixels[index + 2] = Math.round(color.b * 255)
+      pixels[index + 3] = 255
+    }
+    const neonTexture = new THREE.DataTexture(pixels, 128, 128)
+    neonTexture.magFilter = THREE.LinearFilter
+    neonTexture.minFilter = THREE.LinearFilter
+    neonTexture.needsUpdate = true
+    const paint = new THREE.MeshPhysicalMaterial({ map: neonTexture, roughness: .4, metalness: 0, clearcoat: .12, clearcoatRoughness: .3, specularIntensity: .08, envMapIntensity: .15, toneMapped: false })
     mesh(shell, paint, 0, .77, .05)
     // Large, slightly bulging eye and tiny off-centre eye preserve the mascot's expression.
     sphere(.50, dark, .43, .89, .70).scale.set(1, 1.04, .35)
     sphere(.411, white, .43, .90, .80).scale.set(1, 1.03, .30)
-    sphere(.107, dark, .43, .88, .922).scale.z = .42
+    const pupil = sphere(.107, dark, .43, .88, .922)
+    pupil.name = 'robot-pupil'
+    pupil.scale.z = .42
     sphere(.116, dark, -.68, .72, .707).scale.set(.84, 1, .4)
-    sphere(.035, cyan, -.69, .75, .754).scale.z = .3
+    const smallPupil = sphere(.035, cyan, -.69, .75, .754)
+    smallPupil.name = 'robot-small-pupil'
+    smallPupil.scale.z = .3
     mesh(new THREE.ConeGeometry(.065, .115, 3), dark, -.24, .49, .724).rotation.x = Math.PI / 2
     box(.095, .027, .025, dark, -.23, .31, .72, .01)
     const mouth = box(1.03, .027, .028, dark, -.13, .005, .694, .01)
@@ -78,8 +98,8 @@ export function buildModel(kind: ModelKind) {
     brow.rotation.z = -.055
     for (const x of [-.76, .06]) sphere(.022, dark, x, 1.45, .704)
     const highlight = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-.88, 1.17, .54), new THREE.Vector3(-.76, 1.63, .50),
-      new THREE.Vector3(-.42, 1.91, .46), new THREE.Vector3(.05, 2.00, .39),
+      new THREE.Vector3(-.94, 1.30, .68), new THREE.Vector3(-.91, 1.60, .66),
+      new THREE.Vector3(-.73, 1.77, .63), new THREE.Vector3(-.36, 1.85, .58),
     ])
     mesh(new THREE.TubeGeometry(highlight, 32, .027, 8, false), white)
     const purple = new THREE.MeshPhysicalMaterial({ color: '#753695', metalness: .5, roughness: .26, clearcoat: .7 })
@@ -115,8 +135,15 @@ export function buildModel(kind: ModelKind) {
     for (let i = 0; i < 3; i++) box(.4, .035, .03, chrome, 0, -.7 - i * .12, -.495, .01)
     const flameMat = new THREE.MeshPhysicalMaterial({ color: '#ffb000', emissive: '#ff6a00', emissiveIntensity: .35, roughness: .2, clearcoat: 1 })
     const points = [new THREE.Vector2(0, -.38), new THREE.Vector2(.16, -.33), new THREE.Vector2(.23, -.17), new THREE.Vector2(.18, .02), new THREE.Vector2(.08, .24), new THREE.Vector2(0, .46)]
-    mesh(new THREE.LatheGeometry(points, 48), dark, 0, -1.96, 0).scale.set(1.1, 1.04, 1.1)
-    mesh(new THREE.LatheGeometry(points, 48), flameMat, 0, -1.96, .045)
+    // Pivot at the nozzle so the growing drop stays attached until release.
+    const drop = new THREE.Group()
+    drop.name = 'juice-drop'
+    drop.position.y = -1.50
+    group.add(drop)
+    const outline = mesh(new THREE.LatheGeometry(points, 48), dark, 0, -.46, 0)
+    outline.scale.set(1.1, 1.04, 1.1)
+    const juice = mesh(new THREE.LatheGeometry(points, 48), flameMat, 0, -.46, .045)
+    drop.add(outline, juice)
     group.position.y = .08
   } else if(kind === 'camera') {
     box(2.3,1.45,1.1,dark,0,0,0,.2)

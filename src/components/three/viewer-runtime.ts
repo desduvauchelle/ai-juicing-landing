@@ -35,6 +35,14 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
   rim.position.set(3,1,-3);scene.add(rim)
   const model = buildModel(kind)
   scene.add(model)
+  const drop = model.getObjectByName('juice-drop')
+  const pupils = [
+    { name: 'robot-pupil', travelX: .19, travelY: .16, curvature: .022 },
+    { name: 'robot-small-pupil', travelX: .026, travelY: .023, curvature: .006 },
+  ].flatMap(({ name, ...limits }) => {
+    const mesh = model.getObjectByName(name)
+    return mesh ? [{ mesh, rest: mesh.position.clone(), ...limits }] : []
+  })
   const baseY = model.position.y
   const baseRotation = model.rotation.y
   const basePosition = model.position.clone()
@@ -113,6 +121,28 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
     previous = time
     const animated = !paused && !reduce.matches
     if(animated) elapsed += delta
+    if (drop) {
+      // 1.6s growth, .7s accelerating fall, then 1.1s with no drop.
+      // The shared clock freezes for pause, hidden tabs, and offscreen viewers.
+      const phase = elapsed % 3.4
+      if (reduce.matches) {
+        drop.visible = true
+        drop.scale.setScalar(1)
+        drop.position.y = -1.50
+      } else {
+        drop.visible = phase < 2.3
+        if (phase < 1.6) {
+          const growth = THREE.MathUtils.smoothstep(phase, 0, 1.6)
+          drop.scale.setScalar(.08 + growth * .92)
+          drop.position.y = -1.50
+        } else {
+          const fall = Math.min((phase - 1.6) / .7, 1)
+          const shrink = 1 - THREE.MathUtils.smoothstep(fall, .65, 1)
+          drop.scale.set(shrink * (1 - fall * .15), shrink * (1 + fall * .25), shrink)
+          drop.position.y = -1.50 - 1.35 * fall * fall
+        }
+      }
+    }
     if(reactive && animated && !dragging && time >= resumeAt) {
       // Bounded, frame-rate-independent easing gives the mascot weight without
       // moving the canvas or interfering with OrbitControls' camera and pan.
@@ -127,6 +157,20 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
     } else if(!reactive && !interacted && animated) {
       model.position.y = baseY + Math.sin(elapsed*1.4)*.055
       model.rotation.y = baseRotation + (scrollProgress-.4)*.55
+    }
+    // Move each pupil over its eye surface, independently of the head pose.
+    // Bound diagonal gaze so neither pupil can leave its eye.
+    if (reduce.matches) {
+      pupils.forEach(({ mesh, rest }) => mesh.position.copy(rest))
+    } else if (animated) {
+      const length = Math.max(1, Math.hypot(pointerX, pointerY))
+      const gazeX = pointerX / length
+      const gazeY = -pointerY / length
+      for (const { mesh, rest, travelX, travelY, curvature } of pupils) {
+        mesh.position.x = THREE.MathUtils.damp(mesh.position.x, rest.x + gazeX * travelX, 12, delta)
+        mesh.position.y = THREE.MathUtils.damp(mesh.position.y, rest.y + gazeY * travelY, 12, delta)
+        mesh.position.z = THREE.MathUtils.damp(mesh.position.z, rest.z - curvature * (gazeX * gazeX + gazeY * gazeY), 12, delta)
+      }
     }
     scrollKick = THREE.MathUtils.damp(scrollKick, 0, 4, delta)
     controls.autoRotate = animated && spinning
@@ -185,7 +229,7 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
       controls.removeEventListener('start',onStart);controls.removeEventListener('end',onEnd);controls.dispose()
       const geometries=new Set<THREE.BufferGeometry>(), materials=new Set<THREE.Material>()
       model.traverse(object=>{if(object instanceof THREE.Mesh){geometries.add(object.geometry);(Array.isArray(object.material)?object.material:[object.material]).forEach(m=>materials.add(m))}})
-      geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());environment.dispose()
+      geometries.forEach(g=>g.dispose());materials.forEach(m=>{if(m instanceof THREE.MeshStandardMaterial) m.map?.dispose();m.dispose()});environment.dispose()
       renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()
     },
   }

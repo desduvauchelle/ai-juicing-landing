@@ -2,6 +2,13 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { Box3, Vector3, Mesh } from 'three'
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js'
 import { buildModel, type ModelKind } from './models'
+import { Canvas, ImageData } from '@napi-rs/canvas'
+
+// Real canvas encoding lets the Node export test cover embedded neon textures.
+beforeAll(() => {
+  vi.stubGlobal('OffscreenCanvas', Canvas)
+  vi.stubGlobal('ImageData', ImageData)
+})
 
 // GLTFExporter uses this browser API to package the binary payload.
 beforeAll(() => vi.stubGlobal('FileReader', class {
@@ -27,6 +34,16 @@ describe('interactive models', () => {
       const json = JSON.parse(new TextDecoder().decode(new Uint8Array(glb, 20, view.getUint32(12, true))))
       expect(json.meshes.length).toBeGreaterThan(10)
       expect(json.buffers[0].uri).toBeUndefined()
+      if (kind === 'robot') {
+        expect(json.images).toHaveLength(1)
+        expect(json.images[0].mimeType).toBe('image/png')
+        expect(json.images[0].bufferView).toEqual(expect.any(Number))
+        expect(json.images[0].uri).toBeUndefined()
+        const imageView = json.bufferViews[json.images[0].bufferView]
+        const binaryStart = 20 + view.getUint32(12, true) + 8
+        const png = new Uint8Array(glb, binaryStart + (imageView.byteOffset ?? 0), imageView.byteLength)
+        expect([...png.slice(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10])
+      }
       model.traverse(object => {
         if (object instanceof Mesh) {
           object.geometry.dispose()
