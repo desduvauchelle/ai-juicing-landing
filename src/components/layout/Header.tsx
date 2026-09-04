@@ -10,7 +10,6 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: string }) {
 		{ href: localizedPath('/channel', locale), label: 'The channel' },
 		{ href: localizedPath('/projects', locale), label: 'Projects' },
 		{ href: localizedPath('/blog', locale), label: dict['nav.blog'] },
-		{ href: localizedPath('/forms', locale), label: dict['nav.forms'] },
 		{ href: localizedPath('/contact', locale), label: dict['nav.contact'] },
 	]
 

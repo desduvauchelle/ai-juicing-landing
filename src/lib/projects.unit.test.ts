@@ -1,9 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { projects, getProject, filterProjects } from './projects'
+import { projects, getProject, filterProjects, sortProjectsByNewest } from './projects'
 
 describe('project directory', () => {
+  it('sorts newest first without mutating inputs, keeping undated projects last', () => {
+    const base = projects[0]
+    const input = [
+      { ...base, slug: 'unknown', repositoryCreatedAt: undefined },
+      { ...base, slug: 'older', repositoryCreatedAt: '2025-01-01T00:00:00Z' },
+      { ...base, slug: 'newer', repositoryCreatedAt: '2026-01-01T00:00:00Z' },
+      { ...base, slug: 'invalid', repositoryCreatedAt: 'invalid' },
+    ]
+    expect(sortProjectsByNewest(input).map(p => p.slug)).toEqual(['newer', 'older', 'unknown', 'invalid'])
+    expect(input[0].slug).toBe('unknown')
+    expect(projects[0].slug).toBe('infinite-ai-layer')
+  })
   it('finds projects across names and tags regardless of whitespace or case', () => {
     expect(filterProjects(projects, '  ECHO   MACOS ', 'All projects').map(p => p.slug)).toEqual(['echo-scribe'])
     expect(filterProjects(projects, 'Ollama', 'All projects').map(p => p.slug)).toContain('ai-juicebar')

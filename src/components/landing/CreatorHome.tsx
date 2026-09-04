@@ -1,4 +1,5 @@
 import { TypedText } from './TypedText'
+import { ChannelPreview } from './ChannelPreview'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { ObjectViewer } from '@/components/three/ObjectViewer'
 import { CosmicScene } from './CosmicScene'
@@ -25,8 +26,8 @@ export function CreatorHome({ locale, children }: { locale: string; children: Re
       <div className="hub-width intro-line"><span>Ideas worth trying.</span><span>Things worth making.</span><span>Everything worth sharing.</span></div>
 
       <section id="channel" className="hub-width channel-home-teaser">
-        <div className="section-heading"><p className="eyebrow">Curiosity, on camera.</p><h2 data-type-reveal><TypedText text="Less watching the future." /><br /><TypedText text="More making stuff with it." /></h2><p>AI basics, practical how-tos, and creator workflows. Pick a playlist and follow along, right here.</p></div>
-        <Link className="btn hub-button" href={localizedPath('/channel', locale)}>Watch & learn <span aria-hidden="true">↗</span></Link>
+        <div className="section-heading"><p className="eyebrow">Curiosity, on camera.</p><h2 data-type-reveal><TypedText text="Less watching the future." /><br /><TypedText text="More making stuff with it." /></h2><p>AI basics, practical how-tos, and creator workflows. Pick a playlist and follow along, right here.</p><Link className="btn hub-button" href={localizedPath('/channel', locale)}>Watch & learn <span aria-hidden="true">↗</span></Link></div>
+        <ChannelPreview />
       </section>
 
       <section id="projects" className="hub-width projects-section">

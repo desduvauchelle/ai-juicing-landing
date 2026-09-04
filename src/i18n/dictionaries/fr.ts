@@ -3,7 +3,7 @@ import type { Dictionary } from './en'
 const fr: Dictionary = {
 	// Navigation
 	'nav.home': 'Accueil',
-	'nav.blog': 'Blog',
+	'nav.blog': 'Notes',
 	'nav.contact': 'Contact',
 
 	// Hero

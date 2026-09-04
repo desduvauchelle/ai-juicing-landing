@@ -1,7 +1,7 @@
 const en = {
 	// Navigation
 	'nav.home': 'Home',
-	'nav.blog': 'Blog',
+	'nav.blog': 'Notes',
 	'nav.contact': 'Contact',
 
 	// Hero

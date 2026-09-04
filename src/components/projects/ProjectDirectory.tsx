@@ -16,7 +16,7 @@ export function ProjectDirectory({ locale }: { locale: string }) {
       <div className="project-filters" role="group" aria-label="Filter projects by category">{['All projects', ...projectCategories].map(label => <button key={label} type="button" aria-pressed={category === label} onClick={() => setCategory(label)}>{label}</button>)}</div>
       <label className="project-search"><span className="sr-only">Search projects</span><input type="search" placeholder="Find your next rabbit hole…" value={query} onChange={event => setQuery(event.target.value)} /></label>
     </div>
-    <p className="directory-count" role="status">{visible.length} {visible.length === 1 ? 'project' : 'projects'}{query.trim() ? ` matching “${query.trim()}”` : ' to explore'}</p>
+    <p className="directory-count" role="status">{visible.length} {visible.length === 1 ? 'project' : 'projects'}{query.trim() ? ` matching “${query.trim()}”` : ' to explore'} · Newest repositories first · Undated projects last</p>
     {visible.length ? <div className="project-shelf">{visible.map(project => <ProjectCard key={project.slug} project={project} locale={locale} />)}</div> : <div className="directory-empty"><h2>No projects found.</h2><p>Try another word or explore the whole workbench.</p><button type="button" className="btn hub-button" onClick={() => { setQuery(''); setCategory('All projects') }}>Show all projects</button></div>}
   </section>
 }

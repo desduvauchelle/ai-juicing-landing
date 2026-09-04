@@ -251,8 +251,7 @@ for the channel, and a neural-network chip for the project workbench. These are
 procedural geometry with modeled depth, sides, and backs; the robot is a stylized
 interpretation of the supplied branding, not an exact reconstruction.
 
-- Drag to rotate; right-drag to move; use the buttons for spin, zoom, and reset.
-- The robot is shown without labels or a toolbar. Drag it to rotate; keyboard users can focus the canvas, use left/right arrows, and press Home to reset. The camera and chip retain their toolbars.
+- All 3D objects are shown without labels or toolbars. Drag to rotate; right-drag to move. Keyboard users can focus any canvas, use left/right arrows, and press Home to reset.
 - Edit geometry and materials in `src/components/three/models.ts`.
 - `viewer-runtime.ts` owns rendering, lights, OrbitControls, scrolling, and disposal.
 - The homepage mascot opts into `reactive` motion: bounded mouse-following turns, scroll tilt and lift, and gentle idle floating. Dragging temporarily takes priority; ambient motion resumes after release. Pause and reduced-motion preferences disable these reactions.

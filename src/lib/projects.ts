@@ -8,6 +8,7 @@ export interface ProjectImage {
 }
 export interface CreatorProject {
   slug: string
+  repositoryCreatedAt?: string
   name: string
   category: ProjectCategory
   description: string
@@ -28,8 +29,9 @@ export interface CreatorProject {
 const github = 'https://github.com/desduvauchelle/'
 // Reviewed against the public sites and repositories on 2026-09-03.
 // Local editorial data: no runtime scraping or external credentials required.
-export const projects: CreatorProject[] = [
+const projectCatalog: CreatorProject[] = [
   {
+    repositoryCreatedAt: '2026-03-22T07:11:49Z',
     slug: 'echo-scribe', name: 'Echo Scribe', category: 'Apps & tools', accent: 'cyan',
     description: 'Speak your thoughts. Keep the context. Voice typing, meeting transcripts, and a searchable memory of your work, on your Mac.',
     about: 'Echo Scribe starts with a hotkey: speak and polished text lands wherever your cursor is. It also brings meeting transcripts, voice notes, and screen recordings into a local library you can search and ask questions about.',
@@ -72,6 +74,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Recursive Solutions website', url: 'https://www.recursive-solutions.com/' }],
   },
   {
+    repositoryCreatedAt: '2026-02-20T18:23:57Z',
     slug: 'tamias', name: 'Tamias', category: 'Developer tools', accent: 'yellow',
     description: 'An AI sidekick in your terminal. Bring your models, connect tools, and move from a conversation to getting things done.',
     about: 'Tamias is an agentic chat interface powered by Bun and the Vercel AI SDK. A background daemon manages conversations and tool connections, while a terminal interface and web dashboard let you work with multiple AI providers.',
@@ -89,6 +92,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Supplied repository link', url: github + 'tamias-os' }],
   },
   {
+    repositoryCreatedAt: '2026-08-30T05:24:14Z',
     slug: 'infinite-ai-layer', name: 'Infinite AI Layer', category: 'Developer tools', accent: 'cyan',
     description: 'One interface for many kinds of AI. A Rust and TypeScript SDK connecting local models, cloud providers, and terminal agents.',
     about: 'Infinite AI Layer gives applications a consistent API for explicitly chosen AI connections. Matching Rust and TypeScript contracts cover text, streaming, structured output, embeddings, transcription, and supported terminal agents. The host app keeps control of state and tool execution.',
@@ -99,6 +103,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Infinite AI Layer README', url: github + 'infinite-ai-layer#readme' }],
   },
   {
+    repositoryCreatedAt: '2026-08-01T18:31:14Z',
     slug: 'burrowise', name: 'Burrowise', category: 'Apps & tools', accent: 'yellow',
     description: 'A memory for deeper work. Capture spoken thinking and turn it into searchable knowledge that points back to its sources.',
     about: 'Burrowise is a local-first knowledge project for founders and teams. Its workflow connects voice capture, original audio and transcripts, reviewed notes, and cited search or chat, so useful context can carry across interviews and decisions.',
@@ -108,6 +113,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Burrowise website', url: 'https://burrowise-six.vercel.app/' }, { label: 'Burrowise repository', url: github + 'burrowise' }],
   },
   {
+    repositoryCreatedAt: '2026-07-25T23:31:26Z',
     slug: 'ill-be-back', name: 'I’ll Be Back', category: 'Experiments', accent: 'pink',
     description: 'A card game with a poker face. Beat the rank, build the count, and bluff your way to an empty hand.',
     about: 'I’ll Be Back is a shedding card game for two to six players, with a browser game against the machine and a printable rules poster. A draw does not prove you were stuck: it can set up an immediate comeback from any legal cards in your hand.',
@@ -118,6 +124,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Game homepage source', url: github + 'I-ll-be-back/blob/main/src/app/%5Blocale%5D/page.tsx' }, { label: 'Game rules source', url: github + 'I-ll-be-back/blob/main/src/app/%5Blocale%5D/rules/page.tsx' }],
   },
   {
+    repositoryCreatedAt: '2026-03-17T17:28:45Z',
     slug: 'glue-paste-dev', name: 'GluePasteDev', category: 'Developer tools', accent: 'yellow',
     description: 'Turn a board full of coding tasks into AI coding sessions. Write a card, press play, and follow the work as it happens.',
     about: 'GluePasteDev connects a Kanban board to Claude Code. Cards run through planning and execution in sequence, with progress updates and comments that carry your feedback into the next attempt.',
@@ -128,6 +135,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'GluePasteDev README', url: github + 'glue-paste-dev#readme' }],
   },
   {
+    repositoryCreatedAt: '2026-03-14T18:51:18Z',
     slug: 'prompt-optimizer', name: 'Prompt Optimizer', category: 'Developer tools', accent: 'pink',
     description: 'Give your prompts a feedback loop. Generate, evaluate, rewrite, and compare the results across iterations.',
     about: 'Prompt Optimizer is a web app for refining AI prompts against an objective. You supply test cases and evaluation criteria, choose generation and evaluation models through OpenRouter, then follow how the prompt and its scores change over successive rounds.',
@@ -137,6 +145,7 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'Prompt Optimizer README', url: github + 'prompt-optimizer#readme' }],
   },
   {
+    repositoryCreatedAt: '2025-01-27T22:39:19Z',
     slug: 'ai-juicebar', name: 'AI Juicebar', category: 'Experiments', accent: 'cyan',
     description: 'Beyond the chat box. A playground for local AI, co-writing, and connected prompt sequences.',
     about: 'AI Juicebar, hosted in the ai-juicing-juicebox repository, explores a collection of AI tools in an Electron app. It connects to Ollama and keeps chat history in local app storage, with a canvas for experimenting beyond a single chat conversation.',
@@ -147,6 +156,19 @@ export const projects: CreatorProject[] = [
     sources: [{ label: 'AI Juicebar README', url: github + 'ai-juicing-juicebox#readme' }],
   },
 ]
+/** Repository age is a consistent proxy, not a claimed product launch date. */
+export function sortProjectsByNewest(items: CreatorProject[]) {
+  const timestamp = (project: CreatorProject) => {
+    const value = Date.parse(project.repositoryCreatedAt || '')
+    return Number.isFinite(value) ? value : Number.NEGATIVE_INFINITY
+  }
+  return [...items].sort((a, b) => {
+    const left = timestamp(a), right = timestamp(b)
+    return left === right ? 0 : left > right ? -1 : 1
+  })
+}
+export const projects = sortProjectsByNewest(projectCatalog)
+
 export function getProject(slug: string) {
   return projects.find(project => project.slug === slug)
 }

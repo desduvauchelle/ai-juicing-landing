@@ -18,8 +18,8 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1
   host.appendChild(renderer.domElement)
-  renderer.domElement.setAttribute('aria-label', kind === 'robot' ? 'AI Juicing 3D robot mascot. Drag or use the left and right arrow keys to rotate. Press Home to reset.' : `Interactive 3D ${kind}. Drag to rotate, right-drag to move. Use controls below to zoom and reset.`)
-  if (kind === 'robot') renderer.domElement.tabIndex = 0
+  renderer.domElement.setAttribute('aria-label', `Interactive AI Juicing 3D ${kind}. Drag or use the left and right arrow keys to rotate. Right-drag to move. Press Home to reset.`)
+  renderer.domElement.tabIndex = 0
   renderer.domElement.setAttribute('role','img')
   const pmrem = new THREE.PMREMGenerator(renderer)
   const room = new RoomEnvironment()
@@ -43,7 +43,7 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
   controls.target.copy(origin)
   controls.enableDamping = true
   controls.dampingFactor = .09
-  controls.enableZoom = false // Wheel continues to scroll the webpage; explicit zoom buttons below.
+  controls.enableZoom = false // Wheel continues to scroll the webpage; no scroll capture by the model.
   controls.minDistance = distance*.6
   controls.maxDistance = distance*1.6
   controls.autoRotateSpeed = .8
@@ -73,7 +73,7 @@ export function createViewer(host: HTMLElement, kind: ModelKind, onFailure: () =
   controls.addEventListener('start',onStart)
   controls.addEventListener('end',onEnd)
   const onKeyDown = (event: KeyboardEvent) => {
-    if (kind !== 'robot' || !['ArrowLeft', 'ArrowRight', 'Home'].includes(event.key)) return
+    if (!['ArrowLeft', 'ArrowRight', 'Home'].includes(event.key)) return
     event.preventDefault()
     interacted = true
     resumeAt = performance.now() + 1200
