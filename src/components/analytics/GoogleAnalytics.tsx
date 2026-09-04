@@ -2,7 +2,8 @@
 
 import Script from 'next/script'
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+// Public measurement ID; deployments can override it with the environment setting.
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-DW3DH4QD48'
 
 type EventName = 'cta_click' | 'contact_view' | 'form_submit' | (string & {})
 
