@@ -45,6 +45,9 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: string }) {
 					<p className="text-sm text-base-content/50">
 						{dict['footer.copyright'].replace('{year}', String(year))}
 					</p>
+					<a href="https://www.recursive-solutions.com" className="text-sm text-base-content/60 hover:text-primary underline underline-offset-4">
+						{dict['footer.powered.by']}
+					</a>
 					<ThemeToggle dict={dict} />
 				</div>
 			</div>

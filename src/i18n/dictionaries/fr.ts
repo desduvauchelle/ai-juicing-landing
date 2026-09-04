@@ -71,7 +71,7 @@ const fr: Dictionary = {
 	'footer.cookie.policy': 'Politique de cookies',
 	'footer.legal.notice': 'Mentions l\u00E9gales',
 	'footer.copyright': '\u00A9 {year} AI Juicing. Tous droits r\u00E9serv\u00E9s.',
-	'footer.powered.by': 'Propuls\u00E9 par Growth Engine',
+	'footer.powered.by': 'Propuls\u00E9 par Recursive Solutions',
 
 	// Theme
 	'theme.label': 'Th\u00E8me',
