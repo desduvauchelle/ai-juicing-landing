@@ -14,7 +14,13 @@ describe('project directory', () => {
     ]
     expect(sortProjectsByNewest(input).map(p => p.slug)).toEqual(['newer', 'older', 'unknown', 'invalid'])
     expect(input[0].slug).toBe('unknown')
-    expect(projects[0].slug).toBe('infinite-ai-layer')
+  })
+  it('puts the selected projects first and preserves the remaining order', () => {
+    expect(projects.map(p => p.slug)).toEqual([
+      'echo-scribe', 'recursive-solutions', 'infinite-ai-layer',
+      'burrowise', 'ill-be-back', 'glue-paste-dev', 'prompt-optimizer',
+      'tamias', 'ai-juicebar', 'growthinator', 'livecase', 'tamias-os',
+    ])
   })
   it('finds projects across names and tags regardless of whitespace or case', () => {
     expect(filterProjects(projects, '  ECHO   MACOS ', 'All projects').map(p => p.slug)).toEqual(['echo-scribe'])

@@ -167,7 +167,15 @@ export function sortProjectsByNewest(items: CreatorProject[]) {
     return left === right ? 0 : left > right ? -1 : 1
   })
 }
-export const projects = sortProjectsByNewest(projectCatalog)
+// Editorial priorities take precedence over repository age.
+const featuredSlugs = ['echo-scribe', 'recursive-solutions', 'infinite-ai-layer']
+export const projects = sortProjectsByNewest(projectCatalog).sort((a, b) => {
+  const priority = (slug: string) => {
+    const index = featuredSlugs.indexOf(slug)
+    return index === -1 ? featuredSlugs.length : index
+  }
+  return priority(a.slug) - priority(b.slug)
+})
 
 export function getProject(slug: string) {
   return projects.find(project => project.slug === slug)

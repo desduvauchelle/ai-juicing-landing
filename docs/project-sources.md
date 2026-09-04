@@ -23,7 +23,7 @@ Tamias OS needs an accessible public description before adding feature claims. A
 
 ## Project ordering
 
-Newest first uses the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
+The editorial order starts with Echo Scribe, Recursive Solutions, and Infinite AI Layer, as selected by Denis. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
 
 - echo-scribe: 2026-03-22T07:11:49Z — https://github.com/desduvauchelle/echo-scribe
 - tamias: 2026-02-20T18:23:57Z — https://github.com/desduvauchelle/tamias
