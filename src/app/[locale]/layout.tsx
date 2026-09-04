@@ -6,6 +6,7 @@ import { isSupportedLocale, supportedLocales } from '@/i18n/config'
 import { getDb, safeQuery } from '@/lib/db'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { NeonHeadingEffects } from '@/components/typography/NeonHeadingEffects'
 
 export function generateStaticParams() {
 	return supportedLocales.map((locale) => ({ locale }))
@@ -39,6 +40,7 @@ export default async function LocaleLayout({
 			{business && <BusinessJsonLd config={business} />}
 			<Header dict={dict} locale={locale} />
 			<main className="flex-1">{children}</main>
+			<NeonHeadingEffects />
 			<Footer dict={dict} locale={locale} />
 		</>
 	)

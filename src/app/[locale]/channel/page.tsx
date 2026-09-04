@@ -10,7 +10,7 @@ import { LessonLibrary } from '@/components/channel/LessonLibrary'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  return buildPageMetadata({ path: '/channel', locale, title: 'The channel | Learn AI by doing', description: 'Watch AI Juicing lessons right here. Learn AI basics, local models, RAG, prompt writing, and practical YouTube workflows through curated videos and playlists.', image: '/images/channel/iHaS6riS244.webp' })
+  return buildPageMetadata({ path: '/channel', locale, title: 'The channel | Learn AI by doing', description: 'Watch AI Juicing lessons right here. Understand how AI works, explore local models and RAG, and learn to write useful prompts with the AI Basics lessons.', image: '/images/channel/iHaS6riS244.webp' })
 }
 export default async function ChannelPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

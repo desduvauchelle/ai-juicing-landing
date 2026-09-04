@@ -1,0 +1,15 @@
+.heading { white-space: pre-line; position: relative; isolation: isolate; }
+.word { display: inline-block; }
+.letter { display: inline-block; position: relative; transition: none; }
+.block { position: absolute; inset: -.015em -.14em -.07em; z-index: -1; opacity: 0; transition: none; transform: rotate(var(--neon-tilt, -5deg)); pointer-events: none; }
+.block::before { content: ''; position: absolute; inset: 0; background: var(--neon-color); clip-path: polygon(10% 2%, 48% 0, 69% 5%, 100% 3%, 95% 43%, 97% 62%, 88% 100%, 52% 95%, 27% 98%, 0 91%, 5% 53%, 3% 32%); }
+.squiggle { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; stroke: var(--neon-color); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.ink { position: relative; color: inherit; transition: none; }
+@media (prefers-reduced-motion: reduce) { .block { display: none; } }
+
+.letter[data-neon-lit] .block { opacity: 1; }
+.letter[data-neon-lit] .ink { color: #17141f; }
+
+.letter[data-neon-shape='blob'] .block::before { clip-path: none; border-radius: 29% 43% 27% 36% / 19% 25% 34% 26%; }
+.letter[data-neon-shape='ticket'] .block::before { clip-path: polygon(0 9%, 76% 0, 100% 18%, 93% 49%, 100% 77%, 81% 98%, 5% 91%, 11% 58%); border-radius: .08em; }

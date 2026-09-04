@@ -1,0 +1,14 @@
+.preview { background: #17141f; color: #f6f2fc; padding: 36px max(24px, calc((100vw - 1160px)/2)) 48px; min-height: 100vh; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid #393142; }
+.label { color: #bdb2cc; font-size: 11px; letter-spacing: .16em; font-weight: 700; }
+.controls { display: flex; align-items: center; gap: 16px; font-size: 13px; }
+.controls button, .controls select { border: 1px solid #655573; background: #24202e; color: #fff; border-radius: 6px; padding: 9px 12px; cursor: pointer; }
+.controls select { margin-left: 8px; }
+.controls :focus-visible { outline: 2px solid #00eaff; outline-offset: 4px; }
+.hero { padding: 90px 0 70px; }
+.title { font-size: clamp(42px, 7.6vw, 104px); line-height: 1.08; letter-spacing: -.055em; font-weight: 800; margin: 28px 0; }
+.description { color: #bfb4cc; font-size: 16px; line-height: 1.8; margin-top: 24px; }
+.example { padding: 48px 0; border-top: 1px solid #393142; }
+.subtitle { font-size: clamp(34px, 5vw, 60px); line-height: 1.12; letter-spacing: -.045em; font-weight: 800; margin-top: 24px; }
+.footnote { font-size: 12px; color: #9f92af; margin-top: 24px; }
+@media (max-width: 600px) { .toolbar { align-items: flex-start; flex-direction: column; } .hero { padding-top: 54px; } .controls { flex-wrap: wrap; } }

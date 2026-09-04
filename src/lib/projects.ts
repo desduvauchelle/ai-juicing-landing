@@ -117,8 +117,8 @@ const projectCatalog: CreatorProject[] = [
     slug: 'ill-be-back', name: 'I’ll Be Back', category: 'Experiments', accent: 'pink',
     description: 'A card game with a poker face. Beat the rank, build the count, and bluff your way to an empty hand.',
     about: 'I’ll Be Back is a shedding card game for two to six players, with a browser game against the machine and a printable rules poster. A draw does not prove you were stuck: it can set up an immediate comeback from any legal cards in your hand.',
-    highlights: ['Beat the active rank while matching the number of cards in play.', 'Add matching ranks to increase the count and change the next move.', 'Explore the browser game in the repo or take the rules to a real card table.'],
-    tags: ['Card game', 'Bluffing', 'Print & play'], sourceUrl: github + 'I-ll-be-back',
+    highlights: ['Beat the active rank while matching the number of cards in play.', 'Add matching ranks to increase the count and change the next move.', 'Play the browser game or take the rules to a real card table.'],
+    tags: ['Card game', 'Bluffing', 'Print & play'], website: 'https://ill-be-back-card-game.denis755177.chatgpt.site/', sourceUrl: github + 'I-ll-be-back',
     image: { src: '/images/projects/ill-be-back.webp', alt: 'I’ll Be Back card game artwork with a robot hand holding playing cards', caption: 'Original card game artwork from the repository.' },
     gallery: [{ src: '/images/projects/ill-be-back-rules.webp', alt: 'I’ll Be Back printable rules poster', caption: 'The rules poster. Open the image for a closer look.' }],
     sources: [{ label: 'Game homepage source', url: github + 'I-ll-be-back/blob/main/src/app/%5Blocale%5D/page.tsx' }, { label: 'Game rules source', url: github + 'I-ll-be-back/blob/main/src/app/%5Blocale%5D/rules/page.tsx' }],
@@ -168,7 +168,7 @@ export function sortProjectsByNewest(items: CreatorProject[]) {
   })
 }
 // Editorial priorities take precedence over repository age.
-const featuredSlugs = ['echo-scribe', 'recursive-solutions', 'infinite-ai-layer']
+const featuredSlugs = ['echo-scribe', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer']
 export const projects = sortProjectsByNewest(projectCatalog).sort((a, b) => {
   const priority = (slug: string) => {
     const index = featuredSlugs.indexOf(slug)

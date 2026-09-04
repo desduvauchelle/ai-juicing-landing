@@ -17,9 +17,9 @@ describe('project directory', () => {
   })
   it('puts the selected projects first and preserves the remaining order', () => {
     expect(projects.map(p => p.slug)).toEqual([
-      'echo-scribe', 'recursive-solutions', 'infinite-ai-layer',
+      'echo-scribe', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer',
       'burrowise', 'ill-be-back', 'glue-paste-dev', 'prompt-optimizer',
-      'tamias', 'ai-juicebar', 'growthinator', 'livecase', 'tamias-os',
+      'tamias', 'ai-juicebar', 'growthinator', 'livecase',
     ])
   })
   it('finds projects across names and tags regardless of whitespace or case', () => {
