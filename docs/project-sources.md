@@ -4,7 +4,7 @@ Reviewed September 3, 2026. The catalog is editorial content in `src/lib/project
 
 | Project | Description source | Media used |
 | --- | --- | --- |
-| Echo Scribe | https://echo-scribe.ai-juicing.com/ | Three published screenshots under `/screenshots/recorded/` (chat-answer, recording-preview, coaching-feedback); YouTube demo RVOeyxoYHV0 linked by the site |
+| Tucky | https://echo-scribe.ai-juicing.com/ | Tucky mascot and published product screenshots from the Tucky app and website; YouTube demo RVOeyxoYHV0 linked by the site |
 | Growthinator | https://www.growthinator.com/ (rendered public page) | Captured public landing page; site's YouTube introduction zTgK7mo3LnQ |
 | LiveCase | https://www.livecase.com/ (public homepage, feature descriptions, and FAQ) | Captured public homepage, including its illustrated scenario preview; no authenticated learner or author data accessed |
 | Recursive Solutions | https://www.recursive-solutions.com/en (current rendered page) | Captured public landing page |
@@ -23,7 +23,7 @@ Tamias OS needs an accessible public description before adding feature claims. A
 
 ## Project ordering
 
-The editorial order starts with Echo Scribe, Recursive Solutions, Tamias OS, and Infinite AI Layer, as selected by Denis. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
+The editorial order starts with Tucky, Recursive Solutions, Tamias OS, and Infinite AI Layer, as selected by Denis. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
 
 - echo-scribe: 2026-03-22T07:11:49Z — https://github.com/desduvauchelle/echo-scribe
 - tamias: 2026-02-20T18:23:57Z — https://github.com/desduvauchelle/tamias

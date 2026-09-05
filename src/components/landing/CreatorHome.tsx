@@ -33,7 +33,7 @@ export function CreatorHome({ locale, children }: { locale: string; children: Re
 
       <section id="projects" className="hub-width projects-section">
         <div className="section-heading"><p className="eyebrow">The workbench</p><h2 data-type-reveal><TypedText text="Built for the fun of finding out." /></h2><p>A home for my tools, side projects, and open source experiments. Pick something up and make it your own.</p></div>
-        <div className="project-shelf home-project-shelf">{creator.projects.filter(project => ['echo-scribe', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'growthinator', 'glue-paste-dev', 'ill-be-back'].includes(project.slug)).map(project => <ProjectCard key={project.slug} project={project} locale={locale} />)}</div>
+        <div className="project-shelf home-project-shelf">{creator.projects.filter(project => ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'growthinator', 'glue-paste-dev', 'ill-be-back'].includes(project.slug)).map(project => <ProjectCard key={project.slug} project={project} locale={locale} />)}</div>
         <div className="project-shelf-actions"><Link className="btn hub-button" href={localizedPath('/projects', locale)}>Explore all {creator.projects.length} projects <span aria-hidden="true">↗</span></Link><a className="text-link" href={creator.githubUrl} target="_blank" rel="noopener noreferrer">Find me on GitHub ↗</a></div>
       </section>
 
@@ -45,7 +45,7 @@ export function CreatorHome({ locale, children }: { locale: string; children: Re
           <p className="eyebrow">Who am I?</p>
           <h2 id="about-heading">Hi, I’m Denis.</h2>
           <p className="creator-about-intro">I like making things, figuring out how they work, and sharing what I learn.</p>
-          <p>AI Juicing is my home for that curiosity. I build tools like Echo Scribe, explore ideas through Recursive Solutions, and make videos that help AI feel a little less mysterious.</p>
+          <p>AI Juicing is my home for that curiosity. I build tools like Tucky, explore ideas through Recursive Solutions, and make videos that help AI feel a little less mysterious.</p>
           <p>Some experiments become useful tools. Some become lessons. You’ll find both here, along with the code and the things I’m still figuring out.</p>
           <div className="creator-about-links"><Link className="text-link" href={localizedPath('/channel', locale)}>Watch the channel ↗</Link><a className="text-link" href={creator.githubUrl} target="_blank" rel="noopener noreferrer">Explore my code ↗</a></div>
         </div>

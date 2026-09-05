@@ -32,18 +32,19 @@ const github = 'https://github.com/desduvauchelle/'
 const projectCatalog: CreatorProject[] = [
   {
     repositoryCreatedAt: '2026-03-22T07:11:49Z',
-    slug: 'echo-scribe', name: 'Echo Scribe', category: 'Apps & tools', accent: 'cyan',
+    slug: 'tucky', name: 'Tucky', category: 'Apps & tools', accent: 'cyan',
     description: 'Speak your thoughts. Keep the context. Voice typing, meeting transcripts, and a searchable memory of your work, on your Mac.',
-    about: 'Echo Scribe starts with a hotkey: speak and polished text lands wherever your cursor is. It also brings meeting transcripts, voice notes, and screen recordings into a local library you can search and ask questions about.',
+    about: 'Tucky starts with a hotkey: speak and polished text lands wherever your cursor is. It also brings meeting transcripts, voice notes, and screen recordings into a local library you can search and ask questions about.',
     highlights: ['Dictate into the apps you already use, with optional AI formatting.', 'Record meetings or narrated screen walkthroughs when you choose.', 'Search your saved work and ask questions with links back to the sources.'],
     tags: ['macOS', 'Voice to text', 'Local AI'], website: 'https://echo-scribe.ai-juicing.com/', sourceUrl: github + 'echo-scribe',
-    image: { src: '/images/projects/echo-scribe.png', alt: 'Echo Scribe answering a question about past meetings with cited sources', caption: 'Inside Echo Scribe: asking questions about saved work.', fit: 'contain' },
+    image: { src: '/images/projects/tucky.jpg', alt: 'Tucky chipmunk mascot holding a note beside its green satchel', caption: 'Tucky, the voice-to-text companion.', fit: 'contain' },
     gallery: [
-      { src: '/images/projects/echo-recording.png', alt: 'Echo Scribe screen recording preview with editing and export controls', caption: 'Review and export a screen recording.' },
-      { src: '/images/projects/echo-coaching.png', alt: 'Echo Scribe meeting coaching feedback showing covered and missed points', caption: 'Review meeting feedback against a call guide.' },
+      { src: '/images/projects/tucky-dashboard.png', alt: 'Tucky home screen showing recent meetings, recordings, and exports', caption: 'Recent work and next actions in one place.' },
+      { src: '/images/projects/tucky-chat.png', alt: 'Tucky answering questions from an on-device library of meeting transcripts', caption: 'Ask questions across saved meetings and notes.' },
+      { src: '/images/projects/tucky-screen-recorder.png', alt: 'Tucky screen recorder ready to capture a window, display, or selected area', caption: 'Record a window, full screen, or selected area.' },
     ],
-    video: { youtubeId: 'RVOeyxoYHV0', title: 'Echo Scribe demo' },
-    sources: [{ label: 'Echo Scribe website', url: 'https://echo-scribe.ai-juicing.com/' }],
+    video: { youtubeId: 'RVOeyxoYHV0', title: 'Tucky demo' },
+    sources: [{ label: 'Tucky website', url: 'https://echo-scribe.ai-juicing.com/' }],
   },
   {
     slug: 'growthinator', name: 'Growthinator', category: 'Apps & tools', accent: 'pink',
@@ -168,7 +169,7 @@ export function sortProjectsByNewest(items: CreatorProject[]) {
   })
 }
 // Editorial priorities take precedence over repository age.
-const featuredSlugs = ['echo-scribe', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer']
+const featuredSlugs = ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer']
 export const projects = sortProjectsByNewest(projectCatalog).sort((a, b) => {
   const priority = (slug: string) => {
     const index = featuredSlugs.indexOf(slug)

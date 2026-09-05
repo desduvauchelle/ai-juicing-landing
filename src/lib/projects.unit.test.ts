@@ -17,18 +17,18 @@ describe('project directory', () => {
   })
   it('puts the selected projects first and preserves the remaining order', () => {
     expect(projects.map(p => p.slug)).toEqual([
-      'echo-scribe', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer',
+      'tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer',
       'burrowise', 'ill-be-back', 'glue-paste-dev', 'prompt-optimizer',
       'tamias', 'ai-juicebar', 'growthinator', 'livecase',
     ])
   })
   it('finds projects across names and tags regardless of whitespace or case', () => {
-    expect(filterProjects(projects, '  ECHO   MACOS ', 'All projects').map(p => p.slug)).toEqual(['echo-scribe'])
+    expect(filterProjects(projects, '  TUCKY   MACOS ', 'All projects').map(p => p.slug)).toEqual(['tucky'])
     expect(filterProjects(projects, 'Ollama', 'All projects').map(p => p.slug)).toContain('ai-juicebar')
   })
   it('combines the category and search query without leaking other categories', () => {
     expect(filterProjects(projects, 'AI', 'Developer tools').every(p => p.category === 'Developer tools')).toBe(true)
-    expect(filterProjects(projects, 'Echo', 'Business')).toEqual([])
+    expect(filterProjects(projects, 'Tucky', 'Business')).toEqual([])
     expect(filterProjects(projects, 'zzzz-no-match', 'All projects')).toEqual([])
   })
   it('resets to all twelve supplied projects and rejects unknown detail slugs', () => {
