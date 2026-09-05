@@ -19,8 +19,9 @@ export async function generateMetadata({
 	return buildPageMetadata({
 		path: '/newsletter',
 		locale,
-		title: dict['newsletter.heading'],
-		description: dict['newsletter.subtitle'],
+		title: 'AI Juicing newsletter updates',
+		description:
+			'Occasional updates from AI Juicing with new experiments, useful AI lessons, open-source projects, and notes from building in public.',
 	})
 }
 
@@ -38,6 +39,11 @@ export default async function NewsletterPage({
 		<main className="container mx-auto px-4 py-12">
 			<h1 className="text-4xl font-bold text-center mb-2">{dict['newsletter.heading']}</h1>
 			<p className="text-center text-base-content/60 mb-10">{dict['newsletter.subtitle']}</p>
+			<p className="max-w-2xl mx-auto mb-10 text-center text-base-content/70">
+				Get a short note when there is something worth sharing: a new experiment, a
+					useful lesson from the channel, or an update to one of the projects on the
+					workbench. No daily feed—just the discoveries that survive a little testing.
+			</p>
 
 			<div className="max-w-lg mx-auto mb-12">
 				<NewsletterSignup

@@ -22,7 +22,8 @@ export async function generateMetadata({
 		path: '/contact',
 		locale,
 		title: dict['contact.heading'],
-		description: dict['contact.subtitle'],
+		description:
+			'Contact Denis at AI Juicing about an AI experiment, open-source project, channel idea, or something interesting to build.',
 	})
 }
 
@@ -43,7 +44,8 @@ export default async function ContactPage({
 		<main className="container mx-auto px-4 py-12">
 			<ContactAnalytics />
 
-			<h1 className="text-4xl font-bold text-center mb-2">{dict['contact.heading']}</h1>
+			{/* FormRenderer supplies the page's one semantic H1 using the configured form name. */}
+			<p className="text-4xl font-bold text-center mb-2">{dict['contact.heading']}</p>
 			<p className="text-center text-base-content/60 mb-10">
 				{dict['contact.subtitle']}
 			</p>

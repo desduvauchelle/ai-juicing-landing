@@ -10,6 +10,7 @@ export const SITE_NAME = 'AI Juicing'
  * part that actually earns the click out of the SERP, so we drop it instead.
  */
 const TITLE_MAX = 60
+export const DEFAULT_OG_IMAGE = '/opengraph-image'
 
 /**
  * Blog URLs (`/blog`, every article, the author pages) NEVER get the brand
@@ -63,6 +64,7 @@ export function buildPageMetadata({
 }: PageMetadataInput): Metadata {
 	const canonical = buildUrl(path, locale)
 	const languages = buildAlternates(path)
+	const socialImage = image ?? DEFAULT_OG_IMAGE
 	const brandSuffix = ` | ${SITE_NAME}`
 	const useBrand = brand && !isBlogPath(path)
 	const fullTitle =
@@ -92,13 +94,13 @@ export function buildPageMetadata({
 			url: canonical,
 			siteName: SITE_NAME,
 			type,
-			...(image ? { images: [{ url: image }] } : {}),
+			images: [{ url: socialImage }],
 		},
 		twitter: {
-			card: image ? 'summary_large_image' : 'summary',
+			card: 'summary_large_image',
 			title: fullTitle,
 			...(description ? { description } : {}),
-			...(image ? { images: [image] } : {}),
+			images: [socialImage],
 		},
 	}
 }

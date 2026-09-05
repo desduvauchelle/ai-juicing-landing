@@ -6,6 +6,7 @@ import { isSupportedLocale, supportedLocales } from '@/i18n/config'
 import { getDb, safeQuery } from '@/lib/db'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { SiteJsonLd } from '@/components/seo/SiteJsonLd'
 import { NeonHeadingEffects } from '@/components/typography/NeonHeadingEffects'
 
 export function generateStaticParams() {
@@ -36,6 +37,7 @@ export default async function LocaleLayout({
 
 	return (
 		<>
+			<SiteJsonLd />
 			{/* Site-wide Organization / LocalBusiness structured data */}
 			{business && <BusinessJsonLd config={business} />}
 			<Header dict={dict} locale={locale} />

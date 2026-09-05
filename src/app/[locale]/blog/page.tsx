@@ -20,8 +20,9 @@ export async function generateMetadata({
 	return buildPageMetadata({
 		path: '/blog',
 		locale,
-		title: dict['blog.heading'],
-		description: dict['blog.subtitle'],
+		title: 'AI notes, experiments, and builds',
+		description:
+			'Notes from the AI Juicing workbench: practical AI experiments, open-source projects, creator workflows, and what I learn while building in public.',
 	})
 }
 
@@ -45,6 +46,17 @@ export default async function BlogPage({
 			<p className="text-center text-base-content/60 mb-10">
 				{dict['blog.subtitle']}
 			</p>
+			<section className="max-w-2xl mx-auto mb-10 text-base-content/70" aria-labelledby="notes-intro">
+				<h2 id="notes-intro" className="text-xl font-semibold text-base-content mb-2">
+					What these notes are for
+				</h2>
+				<p>
+					This is where I write down the useful parts of building with AI: the experiments
+					that held up, the workflows worth keeping, and the open-source projects still
+					being figured out. Treat each note as a practical starting point, then test it
+					against your own work.
+				</p>
+			</section>
 
 			<TopicChips
 				topics={topics}

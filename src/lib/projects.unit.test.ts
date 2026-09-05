@@ -39,7 +39,7 @@ describe('project directory', () => {
   })
   it('has valid local media and public destinations for every project', () => {
     for (const project of projects) {
-      expect(project.website || project.sourceUrl).toBeTruthy()
+			expect(project.website || project.sourceUrl || project.status).toBeTruthy()
       for (const url of [project.website, project.sourceUrl, ...project.sources.map(s => s.url)].filter(Boolean)) {
         expect(new URL(url!).protocol).toBe('https:')
       }

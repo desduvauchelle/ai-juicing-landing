@@ -87,4 +87,12 @@ describe('seo — buildPageMetadata title branding', () => {
 		expect(meta.openGraph?.title).toBe('My Post')
 		expect(meta.twitter?.title).toBe('My Post')
 	})
+
+	it('uses the site share image when a page has no bespoke image', async () => {
+		const { buildPageMetadata, DEFAULT_OG_IMAGE } = await load()
+		const meta = buildPageMetadata({ path: '/contact', locale: 'en', title: 'Contact' })
+		expect(meta.openGraph?.images).toEqual([{ url: DEFAULT_OG_IMAGE }])
+		expect(meta.twitter?.images).toEqual([DEFAULT_OG_IMAGE])
+		expect((meta.twitter as { card: string }).card).toBe('summary_large_image')
+	})
 })

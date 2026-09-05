@@ -88,9 +88,9 @@ const projectCatalog: CreatorProject[] = [
     slug: 'tamias-os', name: 'Tamias OS', category: 'Experiments', accent: 'cyan',
     description: 'Another project from the workbench. A public overview is on the way.',
     about: 'Tamias OS belongs on this project shelf, but its public story is not available yet. Check back for a walkthrough and a closer look at what it does.',
-    highlights: [], tags: ['On the workbench'], status: 'Preview coming soon', sourceUrl: github + 'tamias-os',
-    note: 'The supplied repository is not publicly accessible at the moment.',
-    sources: [{ label: 'Supplied repository link', url: github + 'tamias-os' }],
+    highlights: [], tags: ['On the workbench'], status: 'Preview coming soon',
+	    note: 'The supplied repository is not publicly accessible at the moment.',
+	    sources: [],
   },
   {
     repositoryCreatedAt: '2026-08-30T05:24:14Z',
