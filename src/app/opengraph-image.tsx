@@ -1,27 +1,19 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
-export const runtime = 'edge'
 export const alt = 'AI Juicing — build, experiment, share'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-function dataUrl(bytes: ArrayBuffer, type: string) {
-	const binary = Array.from(new Uint8Array(bytes), (byte) => String.fromCharCode(byte)).join('')
-	return `data:${type};base64,${btoa(binary)}`
-}
-
 /**
- * Vercel's on-demand OG route deliberately composes the real mascot and logo
+ * The generated OG image deliberately composes the real mascot and logo
  * instead of approximating either with generated artwork.
  */
 export default async function OpenGraphImage() {
 	const [mascot, logo] = await Promise.all([
-		fetch(new URL('./og-assets/mascot.png', import.meta.url)).then((res) =>
-			res.arrayBuffer(),
-		),
-		fetch(new URL('./og-assets/logo.png', import.meta.url)).then((res) =>
-			res.arrayBuffer(),
-		),
+		readFile(join(process.cwd(), 'src/app/og-assets/mascot.png'), 'base64'),
+		readFile(join(process.cwd(), 'src/app/og-assets/logo.png'), 'base64'),
 	])
 
 	return new ImageResponse(
@@ -51,7 +43,7 @@ export default async function OpenGraphImage() {
 					}}
 				>
 					<img
-						src={dataUrl(logo, 'image/png')}
+						src={`data:image/png;base64,${logo}`}
 						width={560}
 						height={130}
 						style={{ display: 'flex', objectFit: 'contain', objectPosition: 'left center' }}
@@ -81,7 +73,7 @@ export default async function OpenGraphImage() {
 					</div>
 				</div>
 				<img
-					src={dataUrl(mascot, 'image/png')}
+					src={`data:image/png;base64,${mascot}`}
 					width={560}
 					height={560}
 					style={{
