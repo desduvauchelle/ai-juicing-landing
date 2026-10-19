@@ -208,6 +208,12 @@ trackEvent('newsletter_signup', { source: 'footer' })
 
 ## Deploying to Vercel
 
+Run `npm run lint`, `npm run typecheck`, and `npm run test -- --run` before pushing.
+ESLint uses the Next.js Core Web Vitals and TypeScript configurations in
+`eslint.config.mjs`, with zero warnings allowed. The commit hook checks types,
+fixes staged TypeScript lint issues, and lints the full repository. `npm run build`
+also runs lint first, including on Vercel.
+
 1. Push this repo to GitHub
 2. Import in Vercel
 3. Add the four environment variables in project settings (use your production Brain URL for `BRAIN_API_URL`)

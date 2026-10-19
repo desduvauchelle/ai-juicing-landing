@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { BlogAuthor } from '@growth-engine/sdk-client'
 import { localizedPath } from '@/lib/i18n-utils'
 
@@ -16,7 +17,7 @@ export function AuthorCard({ author, locale, viewPostsLabel }: AuthorCardProps) 
 		>
 			<div className="card-body items-center text-center">
 				{author.avatarUrl ? (
-					<img
+					<Image unoptimized width={96} height={96}
 						src={author.avatarUrl}
 						alt=""
 						className="w-24 h-24 rounded-full object-cover mb-2"

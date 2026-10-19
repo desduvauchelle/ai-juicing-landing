@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getBlogAuthor, getAuthorPosts } from '@growth-engine/sdk-server'
 import { BlogList } from '@growth-engine/sdk-client/components'
@@ -53,7 +54,7 @@ export default async function AuthorDetailPage({
 
 			<header className="max-w-3xl mx-auto text-center mb-12">
 				{author.avatarUrl ? (
-					<img
+					<Image unoptimized width={128} height={128}
 						src={author.avatarUrl}
 						alt=""
 						className="w-32 h-32 rounded-full object-cover mx-auto mb-4"

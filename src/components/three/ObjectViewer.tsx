@@ -14,7 +14,7 @@ export function ObjectViewer({kind, compact=false, reactive=false}:{kind:ModelKi
   const [status,setStatus]=useState<'loading'|'ready'|'error'>('loading')
   const paused=useVisualMotionPaused()
   const pausedRef=useRef(paused)
-  pausedRef.current=paused
+  useEffect(()=>{pausedRef.current=paused},[paused])
 
   useEffect(()=>{
     let cancelled=false,started=false

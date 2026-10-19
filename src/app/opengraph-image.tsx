@@ -43,6 +43,7 @@ export default async function OpenGraphImage() {
 					}}
 				>
 					<img
+						alt="AI Juicing"
 						src={`data:image/png;base64,${logo}`}
 						width={560}
 						height={130}
@@ -73,6 +74,7 @@ export default async function OpenGraphImage() {
 					</div>
 				</div>
 				<img
+					alt="AI Juicing robot mascot"
 					src={`data:image/png;base64,${mascot}`}
 					width={560}
 					height={560}

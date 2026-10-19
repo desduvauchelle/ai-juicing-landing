@@ -15,7 +15,6 @@ export async function generateMetadata({
 	params: Promise<{ locale: string }>
 }): Promise<Metadata> {
 	const { locale } = await params
-	const dict = await getDictionary(locale)
 	return buildPageMetadata({
 		path: '/newsletter',
 		locale,

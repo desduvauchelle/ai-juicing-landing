@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { BlogAuthor } from '@growth-engine/sdk-client'
 import { localizedPath } from '@/lib/i18n-utils'
 
@@ -15,7 +16,7 @@ export function AuthorByline({ author, locale }: AuthorBylineProps) {
 			rel="author"
 		>
 			{author.avatarUrl ? (
-				<img
+				<Image unoptimized width={32} height={32}
 					src={author.avatarUrl}
 					alt=""
 					className="w-8 h-8 rounded-full object-cover"

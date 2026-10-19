@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -20,6 +20,9 @@ export function useGsap(
   scope: React.RefObject<HTMLElement | null>,
   deps: React.DependencyList = [],
 ) {
+  // This low-level adapter deliberately accepts the caller's dependency list,
+  // just like useEffect. Static hook analysis cannot inspect that list here.
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
   const stableCallback = useCallback(callback, deps)
 
   useEffect(() => {
@@ -70,6 +73,8 @@ export function useScrollReveal<T extends HTMLElement>(
   options: ScrollRevealOptions = {},
 ) {
   const ref = useRef<T>(null)
+  // Scroll reveals use their initial options and run once per mount.
+  const [initialOptions] = useState(options)
 
   useEffect(() => {
     const el = ref.current
@@ -84,7 +89,7 @@ export function useScrollReveal<T extends HTMLElement>(
       start = 'top 85%',
       delay = 0,
       ease = 'power2.out',
-    } = options
+    } = initialOptions
 
     const fromVars: gsap.TweenVars = {
       opacity,
@@ -113,8 +118,7 @@ export function useScrollReveal<T extends HTMLElement>(
     }
 
     return () => ctx.revert()
-    // Run once on mount
-  }, [])
+  }, [initialOptions])
 
   return ref
 }

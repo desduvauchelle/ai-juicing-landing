@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { BlogAuthor } from '@growth-engine/sdk-client'
 import { localizedPath } from '@/lib/i18n-utils'
 
@@ -24,7 +25,7 @@ export function AuthorChips({ authors, locale, label }: AuthorChipsProps) {
 						className="badge badge-outline badge-lg gap-2 hover:badge-primary transition-colors"
 					>
 						{author.avatarUrl ? (
-							<img
+							<Image unoptimized width={20} height={20}
 								src={author.avatarUrl}
 								alt=""
 								className="w-5 h-5 rounded-full object-cover"

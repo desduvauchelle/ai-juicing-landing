@@ -1,16 +1,15 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useSyncExternalStore } from 'react'
 import type { Dictionary, DictionaryKey } from '@/i18n'
 import { cn } from '@/lib/utils'
 import {
 	DARK_MEDIA_QUERY,
 	DEFAULT_THEME_PREFERENCE,
-	THEME_STORAGE_KEY,
-	isThemePreference,
 	resolveTheme,
 	type ThemePreference,
 } from '@/lib/theme'
+import { readPreference, writePreference, subscribeToPreference } from '@/lib/theme-preference-store'
 
 const SunIcon = (
 	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4" aria-hidden="true">
@@ -41,29 +40,17 @@ export function ThemeToggle({ dict }: { dict: Dictionary }) {
 	// before paint. This state only drives which segment looks selected, so it
 	// starts at the default on both server and first client render (no hydration
 	// mismatch) and corrects itself once localStorage is readable.
-	const [preference, setPreference] = useState<ThemePreference>(DEFAULT_THEME_PREFERENCE)
+	const preference = useSyncExternalStore(subscribeToPreference, readPreference, () => DEFAULT_THEME_PREFERENCE)
 
 	const apply = useCallback((next: ThemePreference) => {
 		const prefersDark = window.matchMedia(DARK_MEDIA_QUERY).matches
 		document.documentElement.setAttribute('data-theme', resolveTheme(next, prefersDark))
 	}, [])
 
-	useEffect(() => {
-		try {
-			const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
-			if (isThemePreference(stored)) {
-				setPreference(stored)
-			}
-		} catch (err) {
-			// Storage can throw in private mode / with cookies blocked. The site
-			// still works (it just falls back to the OS setting), but don't hide it.
-			console.warn('[theme] Unable to read the stored theme preference:', err)
-		}
-	}, [])
-
 	// In auto mode the OS is the source of truth, so keep following it while the
 	// visitor is on the page (e.g. macOS flipping to dark at sunset).
 	useEffect(() => {
+		apply(preference)
 		if (preference !== 'auto') return
 
 		const media = window.matchMedia(DARK_MEDIA_QUERY)
@@ -73,13 +60,8 @@ export function ThemeToggle({ dict }: { dict: Dictionary }) {
 	}, [preference, apply])
 
 	function choose(next: ThemePreference) {
-		setPreference(next)
 		apply(next)
-		try {
-			window.localStorage.setItem(THEME_STORAGE_KEY, next)
-		} catch (err) {
-			console.warn('[theme] Unable to persist the theme preference:', err)
-		}
+		writePreference(next)
 	}
 
 	return (

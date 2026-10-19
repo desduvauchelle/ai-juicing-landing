@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import {
 	getBlogPost,
@@ -73,8 +74,8 @@ export default async function BlogPostPage({
 
 			<article className="max-w-3xl mx-auto">
 				{post.heroImageUrl && (
-					<figure className="aspect-video overflow-hidden rounded-xl mb-8">
-						<img
+					<figure className="relative aspect-video overflow-hidden rounded-xl mb-8">
+						<Image unoptimized fill sizes="(max-width: 768px) 100vw, 768px"
 							src={post.heroImageUrl}
 							alt={post.title}
 							className="w-full h-full object-cover"
