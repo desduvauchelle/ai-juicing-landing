@@ -33,7 +33,7 @@ export function CreatorHome({ locale, children }: { locale: string; children: Re
 
       <section id="projects" className="hub-width projects-section">
         <div className="section-heading"><p className="eyebrow">The workbench</p><h2 data-type-reveal><TypedText text="Built for the fun of finding out." /></h2><p>A home for my tools, side projects, and open source experiments. Pick something up and make it your own.</p></div>
-        <div className="project-shelf home-project-shelf">{creator.projects.filter(project => ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'growthinator', 'glue-paste-dev', 'ill-be-back'].includes(project.slug)).map(project => <ProjectCard key={project.slug} project={project} locale={locale} />)}</div>
+        <div className="project-shelf home-project-shelf">{creator.projects.filter(project => ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto', 'growthinator', 'glue-paste-dev', 'ill-be-back'].includes(project.slug)).map(project => <ProjectCard key={project.slug} project={project} locale={locale} />)}</div>
         <div className="project-shelf-actions"><Link className="btn hub-button" href={localizedPath('/projects', locale)}>Explore all {creator.projects.length} projects <span aria-hidden="true">↗</span></Link><a className="text-link" href={creator.githubUrl} target="_blank" rel="noopener noreferrer">Find me on GitHub ↗</a></div>
       </section>
 

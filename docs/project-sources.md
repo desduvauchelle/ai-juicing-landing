@@ -1,10 +1,11 @@
 # AI Juicing project catalog
 
-Reviewed September 3, 2026. The catalog is editorial content in `src/lib/projects.ts`; it does not scrape sites at runtime. All twelve user-supplied projects are included. Source links appear on the individual project pages.
+Original catalog reviewed September 3, 2026; Rascal Moto added October 19, 2026 from local project sources. The catalog is editorial content in `src/lib/projects.ts`; it does not scrape sites at runtime. All thirteen user-supplied projects are included. Source links appear on the individual project pages.
 
 | Project | Description source | Media used |
 | --- | --- | --- |
 | Tucky | https://echo-scribe.ai-juicing.com/ | Tucky mascot and published product screenshots from the Tucky app and website; YouTube demo RVOeyxoYHV0 linked by the site |
+| Rascal Moto | Local `rascal-moto/README.md` and `apps/web/src/components/landing-page.tsx`; website address taken from README, without accessing the deployed site or private repository | Existing `apps/web/public/landing/rukky-motorcycle.png` artwork copied locally; film V-N_mXYysX4 referenced by the landing page source. iPhone development and verification limitations retained. |
 | Growthinator | https://www.growthinator.com/ (rendered public page) | Captured public landing page; site's YouTube introduction zTgK7mo3LnQ |
 | LiveCase | https://www.livecase.com/ (public homepage, feature descriptions, and FAQ) | Captured public homepage, including its illustrated scenario preview; no authenticated learner or author data accessed |
 | Recursive Solutions | https://www.recursive-solutions.com/en (current rendered page) | Captured public landing page |
@@ -23,7 +24,7 @@ Tamias OS needs an accessible public description before adding feature claims. A
 
 ## Project ordering
 
-The editorial order starts with Tucky, Recursive Solutions, Tamias OS, and Infinite AI Layer, as selected by Denis. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
+The editorial order starts with Tucky, Recursive Solutions, Tamias OS, and Infinite AI Layer, as selected by Denis, followed by Rascal Moto, added to the homepage showcase on October 19, 2026. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
 
 - echo-scribe: 2026-03-22T07:11:49Z — https://github.com/desduvauchelle/echo-scribe
 - tamias: 2026-02-20T18:23:57Z — https://github.com/desduvauchelle/tamias

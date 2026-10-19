@@ -47,6 +47,17 @@ const projectCatalog: CreatorProject[] = [
     sources: [{ label: 'Tucky website', url: 'https://echo-scribe.ai-juicing.com/' }],
   },
   {
+    slug: 'rascal-moto', name: 'Rascal Moto', category: 'Apps & tools', accent: 'cyan',
+    description: 'A little company for the long way. Plan your next motorcycle trip on the web, and explore an iPhone voice companion built around the ride.',
+    about: 'Rascal brings parked trip planning and an iPhone voice copilot into one project. Pick a destination, add stops, and save or export a trip on the web. The native companion is being developed around spoken navigation requests, Apple Music controls, and memories you can review and remove.',
+    highlights: ['Plan a trip with place search, map selection, and stops you can reorder.', 'Save, edit, and export trips from the web workspace while parked.', 'Explore the iPhone companion in development for voice, navigation, and Apple Music.'],
+    tags: ['Motorcycling', 'iPhone', 'Voice companion'], website: 'https://rascal-moto.ai-juicing.com/', status: 'In development',
+    image: { src: '/images/projects/rascal-moto.png', alt: 'Rascal, a raccoon wearing a green motorcycle helmet, beside a green motorcycle', caption: 'Rascal project artwork: a little company for the long way.', fit: 'contain' },
+    video: { youtubeId: 'V-N_mXYysX4', title: 'Meet Rascal: the film' },
+    note: 'The iPhone companion is in development. On-road voice, navigation, Bluetooth, and music reliability still need physical testing; hosted account sync and group sharing need end-to-end verification.',
+    sources: [{ label: 'Rascal Moto website', url: 'https://rascal-moto.ai-juicing.com/' }],
+  },
+  {
     slug: 'growthinator', name: 'Growthinator', category: 'Apps & tools', accent: 'pink',
     description: 'An AI audience for your next YouTube video. Explore ideas, write scripts, and get feedback before you hit record.',
     about: 'Growthinator puts channel context and audience personas into the content creation process. It helps shape ideas into scripts, gather simulated audience feedback, preview titles and thumbnails, and turn a video into content for other channels.',
@@ -169,7 +180,7 @@ export function sortProjectsByNewest(items: CreatorProject[]) {
   })
 }
 // Editorial priorities take precedence over repository age.
-const featuredSlugs = ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer']
+const featuredSlugs = ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto']
 export const projects = sortProjectsByNewest(projectCatalog).sort((a, b) => {
   const priority = (slug: string) => {
     const index = featuredSlugs.indexOf(slug)

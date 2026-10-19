@@ -17,7 +17,7 @@ describe('project directory', () => {
   })
   it('puts the selected projects first and preserves the remaining order', () => {
     expect(projects.map(p => p.slug)).toEqual([
-      'tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer',
+      'tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto',
       'burrowise', 'ill-be-back', 'glue-paste-dev', 'prompt-optimizer',
       'tamias', 'ai-juicebar', 'growthinator', 'livecase',
     ])
@@ -31,8 +31,8 @@ describe('project directory', () => {
     expect(filterProjects(projects, 'Tucky', 'Business')).toEqual([])
     expect(filterProjects(projects, 'zzzz-no-match', 'All projects')).toEqual([])
   })
-  it('resets to all twelve supplied projects and rejects unknown detail slugs', () => {
-    expect(filterProjects(projects, '', 'All projects')).toHaveLength(12)
+  it('resets to all thirteen supplied projects and rejects unknown detail slugs', () => {
+    expect(filterProjects(projects, '', 'All projects')).toHaveLength(13)
     expect(filterProjects(projects, 'LiveCase', 'Apps & tools').map(p => p.slug)).toEqual(['livecase'])
     expect(getProject('missing-project')).toBeUndefined()
     expect(new Set(projects.map(p => p.slug)).size).toBe(projects.length)
