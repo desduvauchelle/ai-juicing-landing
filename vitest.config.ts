@@ -8,6 +8,7 @@ export default defineConfig({
 		},
 	},
 	test: {
+		server: { deps: { inline: ['@growth-engine/sdk-client'] } },
 		globals: true,
 		environment: 'node',
 		include: ['src/**/*.unit.test.ts'],
