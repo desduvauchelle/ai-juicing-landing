@@ -68,7 +68,7 @@ const en = {
 	'footer.cookie.policy': 'Cookie Policy',
 	'footer.legal.notice': 'Legal Notice',
 	'footer.copyright': '\u00A9 {year} AI Juicing. All rights reserved.',
-	'footer.powered.by': 'Powered by Recursive Solutions',
+	'footer.powered.by': 'Powered by',
 
 	// Theme
 	'theme.label': 'Theme',

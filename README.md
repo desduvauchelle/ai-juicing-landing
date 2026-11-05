@@ -284,3 +284,11 @@ Edit `src/lib/projects.ts` to add or update a project. Images live in `public/im
 ### Channel learning page
 
 `/channel` contains the two public educational playlists, two additional how-to videos, lesson summaries, and practice prompts. One embedded player supports lesson selection and manual Previous/Next navigation. The header, footer, and homepage link into the page. Edit `src/lib/channel.ts` to update the collection; provenance and embedding details are in `docs/channel-sources.md`. The camera object now appears on this page.
+
+### Footer badge
+
+The footer uses the SDK's new `PoweredByLucy` badge, vendored in
+`src/components/branding/PoweredByLucy.tsx` until it is published (sdk-client
+v0.1.178 does not export it). Replace the local import with the SDK export once
+available. The only styling adaptation makes the badge follow the site's
+Light/Dark/Auto selector. English and French lead-in labels are localized.
