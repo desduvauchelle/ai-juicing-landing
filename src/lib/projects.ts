@@ -31,6 +31,28 @@ const github = 'https://github.com/desduvauchelle/'
 // Local editorial data: no runtime scraping or external credentials required.
 const projectCatalog: CreatorProject[] = [
   {
+    slug: 'tamias-duo', name: 'Tamias Duo', category: 'Apps & tools', accent: 'yellow',
+    description: 'Your second brain, with hands. A personal AI assistant that remembers the context, organizes the moving pieces, and helps you get things done.',
+    about: 'Tamias Duo brings conversations, projects, inboxes, and tasks into one workspace. Talk through an idea, connect the accounts you work with, and let your assistant help turn open loops into clear next steps, with memory to carry the context forward.',
+    highlights: ['Keep conversations, tasks, files, and project context together.', 'Connect your inbox and calendar, then review drafts and decisions in the workspace.', 'Use chat or voice to plan work and follow progress with your assistant.'],
+    tags: ['Personal assistant', 'AI memory', 'Productivity'], website: 'https://tamias-duo.ai-juicing.com/',
+    image: { src: '/images/projects/tamias-duo-website.jpg', alt: 'Tamias Duo landing page with its assistant mascot and an illustrative planning conversation', caption: 'The Tamias Duo website, featuring an illustrative assistant conversation.' },
+    sources: [{ label: 'Tamias Duo website', url: 'https://tamias-duo.ai-juicing.com/' }, { label: 'Features', url: 'https://tamias-duo.ai-juicing.com/features' }],
+  },
+  {
+    slug: 'freddai', name: 'Freddai', category: 'Developer tools', accent: 'pink',
+    description: 'All your coding agents, together. Switch between accounts, keep projects and threads in one workspace, and pick up the conversation from your phone.',
+    about: 'Freddai gives Codex and Claude Code a shared workspace around your local projects and your own provider subscriptions. See account usage, choose an agent for the next task, follow active threads, and generate daily recaps. A paired mobile companion lets you check progress and reply while the work keeps running on your Mac.',
+    highlights: ['Switch coding agents and accounts without setting up your projects again.', 'Follow project threads, review requests, and see provider usage where supported.', 'Check progress and reply from a paired mobile companion while your Mac stays awake and online.'],
+    tags: ['Coding agents', 'Codex', 'Claude Code'], website: 'https://freddai.ai-juicing.com/',
+    image: { src: '/images/projects/freddai-desktop.webp', alt: 'Freddai Home dashboard showing activity across illustrative coding projects', caption: 'Desktop product preview with illustrative projects; actions disabled.' },
+    gallery: [
+      { src: '/images/projects/freddai-companion.webp', alt: 'Freddai mobile companion showing project groups and coding conversations', caption: 'Companion product preview with illustrative projects; actions disabled.', fit: 'contain' },
+      { src: '/images/projects/freddai-website.jpg', alt: 'Freddai landing page introducing its workspace for coding agents and accounts', caption: 'The Freddai website.' },
+    ],
+    sources: [{ label: 'Freddai website', url: 'https://freddai.ai-juicing.com/' }],
+  },
+  {
     repositoryCreatedAt: '2026-03-22T07:11:49Z',
     slug: 'tucky', name: 'Tucky', category: 'Apps & tools', accent: 'cyan',
     description: 'Speak your thoughts. Keep the context. Voice typing, meeting transcripts, and a searchable memory of your work, on your Mac.',
@@ -180,7 +202,7 @@ export function sortProjectsByNewest(items: CreatorProject[]) {
   })
 }
 // Editorial priorities take precedence over repository age.
-const featuredSlugs = ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto']
+const featuredSlugs = ['tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto', 'tamias-duo', 'freddai']
 export const projects = sortProjectsByNewest(projectCatalog).sort((a, b) => {
   const priority = (slug: string) => {
     const index = featuredSlugs.indexOf(slug)
