@@ -17,7 +17,7 @@ describe('project directory', () => {
   })
   it('puts the selected projects first and preserves the remaining order', () => {
     expect(projects.map(p => p.slug)).toEqual([
-      'tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto', 'tamias-duo', 'freddai',
+      'freddai', 'tamias-duo', 'tucky', 'recursive-solutions', 'tamias-os', 'infinite-ai-layer', 'rascal-moto',
       'burrowise', 'ill-be-back', 'glue-paste-dev', 'prompt-optimizer',
       'tamias', 'ai-juicebar', 'growthinator', 'livecase',
     ])

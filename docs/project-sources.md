@@ -26,7 +26,7 @@ Tamias OS needs an accessible public description before adding feature claims. A
 
 ## Project ordering
 
-The editorial order starts with Tucky, Recursive Solutions, Tamias OS, and Infinite AI Layer, as selected by Denis, followed by Rascal Moto, added to the homepage showcase on October 19, 2026. Tamias Duo and Freddai follow those selections and also appear on the homepage showcase. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
+As requested by Denis on November 6, 2026, Freddai and Tamias Duo lead both the homepage showcase and project directory. Tucky, Recursive Solutions, Tamias OS, Infinite AI Layer, and Rascal Moto follow in their existing relative order. The remaining projects retain their repository-age order using the public GitHub repository `created_at` timestamp, captured September 3, 2026 from https://api.github.com/users/desduvauchelle/repos?per_page=100&sort=created&direction=desc . Repository creation is a sorting proxy, not a product launch date. Dates are stored locally in `repositoryCreatedAt`, so viewing the directory does not call GitHub.
 
 - echo-scribe: 2026-03-22T07:11:49Z — https://github.com/desduvauchelle/echo-scribe
 - tamias: 2026-02-20T18:23:57Z — https://github.com/desduvauchelle/tamias
