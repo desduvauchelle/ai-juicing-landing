@@ -83,6 +83,27 @@ const { form, schema, loading } = useForm('contact-form')
 const result = await submitForm('contact-form', formData)
 ```
 
+### Spam protection
+
+Both SDK packages are pinned to `v0.1.178`. The `FormRenderer` used on the contact
+and dynamic form pages automatically sends an off-screen `company_website`
+honeypot and render/submit timestamps. The server screens these signals plus
+random-looking name/message pairs before creating submissions, CRM contacts,
+notifications, or pipeline activity. Blocked requests return a success-shaped
+response with `X-Form-Accepted: 0` and a `form.spam_blocked` recovery audit entry.
+
+Custom forms using `submitForm` must render the honeypot and pass the third
+`guard` argument (see the SDK's `FormSpamGuard` and `createFormSpamGuard` exports)
+to get honeypot and timing protection. Missing signals remain accepted for
+backward compatibility. The random-text rule only detects a single-token name;
+two-word names such as the reported spam sample can evade that rule. These
+checks reduce spam but do not guarantee that every bot is blocked.
+
+Run `npx vitest run src/lib/form-spam.unit.test.ts` to exercise the installed
+SDK's submission handler with a mocked database and email service. Redeploy the
+site after changing SDK pins; a local dependency update does not update the live
+form handler.
+
 ### Generated types (optional)
 
 For compile-time TypeScript safety, pull form schemas locally:
